@@ -12,7 +12,9 @@ func main() {
 
 	app.Static("/static", "./static")
 
-	app.Get("/", handler.Hello)
+	app.Get("/", handler.Index)
+
+	app.Get("/hello", handler.Hello)
 	app.Get("/list", handler.List)
 
 	log.Fatal(app.Listen("localhost:3000"))

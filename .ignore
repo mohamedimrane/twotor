@@ -5,9 +5,3 @@ views/*_templ.go
 styles/output.css
 go.sum
 package-lock.json
-
-go.mod
-package.json
-Makefile
-
-tailwind.config.js

@@ -1,17 +1,28 @@
 package views
 
-templ layout() {
+templ layout(title string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<title>Twotor</title>
+			<title>Twotor - { title }</title>
 			<link rel="stylesheet" href="/static/styles/output.css"/>
 			<script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
 		</head>
 		<body>
-			{ children... }
+			<div class="container mx-auto h-screen flex flex-row">
+				<!-- Left side -->
+				<div class="w-1/5 flex flex-col"></div>
+				<!-- Middle side -->
+				<div class="w-3/5 border-x-2 border-x-grey-300">
+					<!-- Title -->
+					<h1 class="border-b-2 border-b-grey-300 px-3 py-4 font-bold">{ title }</h1>
+					{ children... }
+				</div>
+				<!-- Right side -->
+				<div class="w-1/5 flex flex-col"></div>
+			</div>
 		</body>
 	</html>
 }
