@@ -3,10 +3,10 @@ package views
 templ Index() {
 	@layout("Home") {
 		<!-- Tweet form -->
-		<div class="flex">
+		<div class="flex border-b-2 border-b-neutral-xlight">
 			<!-- Avatar -->
 			<div class="w-2/12 py-4 flex justify-around">
-				<div class="w-20 h-20 rounded-full border-2 overflow-hidden">
+				<div class="w-20 h-20 rounded-full border-2 border-neutral-xlight overflow-hidden">
 					<img class="w-full h-full" src="/static/images/avatar.png" alt="avatar"/>
 				</div>
 			</div>
@@ -14,7 +14,7 @@ templ Index() {
 			<div class="w-full py-9 px-4 space-y-2 flex flex-col">
 				<!-- Text area -->
 				<div>
-					<textarea class="w-full resize-y text-lg outline-none" rows="2" placeholder="what's cooking, my man?"></textarea>
+					<textarea class="w-full resize-y text-lg outline-none" rows="2" placeholder="hello?"></textarea>
 				</div>
 				<!-- Action buttons -->
 				<div class="flex justify-between">
@@ -30,6 +30,12 @@ templ Index() {
 					</div>
 				</div>
 			</div>
+		</div>
+		<!-- Twoot list -->
+		<div class="flex flex-col">
+			@twoot("user1", "hello guys", "avatar.png", "122k", "122k", "122k", "122k")
+			@twoot("user2", "hello world", "avatar.png", "122k", "122k", "122k", "122k")
+			@twoot("user3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic corrupti ea officia mollitia totam repellat illum pariatur odio laboriosam voluptate nisi soluta minima, eaque praesentium nulla maiores? Aspernatur, dolorem!", "avatar.png", "122k", "122k", "122k", "122k")
 		</div>
 	}
 }

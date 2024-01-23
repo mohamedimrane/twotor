@@ -38,7 +38,7 @@ func Index() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("--> <div class=\"flex\"><!--")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("--> <div class=\"flex border-b-2 border-b-neutral-xlight\"><!--")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -47,7 +47,7 @@ func Index() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("--><div class=\"w-2/12 py-4 flex justify-around\"><div class=\"w-20 h-20 rounded-full border-2 overflow-hidden\"><img class=\"w-full h-full\" src=\"/static/images/avatar.png\" alt=\"avatar\"></div></div><!--")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("--><div class=\"w-2/12 py-4 flex justify-around\"><div class=\"w-20 h-20 rounded-full border-2 border-neutral-xlight overflow-hidden\"><img class=\"w-full h-full\" src=\"/static/images/avatar.png\" alt=\"avatar\"></div></div><!--")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -65,7 +65,7 @@ func Index() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("--><div><textarea class=\"w-full resize-y text-lg outline-none\" rows=\"2\" placeholder=\"what&#39;s cooking, my man?\"></textarea></div><!--")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("--><div><textarea class=\"w-full resize-y text-lg outline-none\" rows=\"2\" placeholder=\"hello?\"></textarea></div><!--")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -101,7 +101,32 @@ func Index() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></div></div></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></div></div></div></div><!--")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Var11 := ` Twoot list `
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var11)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("--> <div class=\"flex flex-col\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = twoot("user1", "hello guys", "avatar.png", "122k", "122k", "122k", "122k").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = twoot("user2", "hello world", "avatar.png", "122k", "122k", "122k", "122k").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = twoot("user3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic corrupti ea officia mollitia totam repellat illum pariatur odio laboriosam voluptate nisi soluta minima, eaque praesentium nulla maiores? Aspernatur, dolorem!", "avatar.png", "122k", "122k", "122k", "122k").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
