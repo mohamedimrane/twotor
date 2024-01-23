@@ -1,0 +1,21 @@
+package views
+
+import "github.com/mohamedimrane/twotor/views/layouts"
+
+templ UnloggedIndex() {
+	@layouts.Base("") {
+		<div class="h-screen flex flex-row">
+			<div class="w-1/2 flex justify-around items-center">
+				<img class="w-2/5" src="/static/logos/Z.png" alt="Z"/>
+			</div>
+			<div class="w-1/2 mx-10 flex flex-col justify-center space-y-10">
+				<h1 class="text-8xl font-bold">Hello there</h1>
+				<h2 class="text-5xl font-bold">Join today.</h2>
+				<div class="w-full flex flex-col space-y-4">
+					<button class="px-6 py-2 w-1/3 text-primary-white bg-primary hover:bg-primary-dark transition duration-75 rounded-full">Create account</button>
+					<button class="px-6 py-2 w-1/3 text-neutral-xxlight bg-neutral-light hover:bg-neutral-dark transition duration-75 rounded-full">Log into your account</button>
+				</div>
+			</div>
+		</div>
+	}
+}

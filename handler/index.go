@@ -6,5 +6,11 @@ import (
 )
 
 func Index(c *fiber.Ctx) error {
-	return Render(c, views.Home())
+	const isLoggedIn = false
+
+	if isLoggedIn {
+		return Render(c, views.Home())
+	} else {
+		return Render(c, views.UnloggedIndex())
+	}
 }
