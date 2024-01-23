@@ -46,7 +46,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Graphik, sans-serif;
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -544,40 +544,6 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -621,6 +587,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.max-w-\[80rem\] {
+  max-width: 80rem;
 }
 
 .resize-y {
@@ -680,14 +650,25 @@ video {
   border-bottom-width: 2px;
 }
 
-.bg-cyan-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(6 182 212 / var(--tw-bg-opacity));
+.border-x-neutral-xlight {
+  --tw-border-opacity: 1;
+  border-left-color: rgb(225 232 237 / var(--tw-border-opacity));
+  border-right-color: rgb(225 232 237 / var(--tw-border-opacity));
+}
+
+.border-b-neutral-xlight {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(225 232 237 / var(--tw-border-opacity));
 }
 
 .bg-green-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(134 239 172 / var(--tw-bg-opacity));
+}
+
+.bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 161 242 / var(--tw-bg-opacity));
 }
 
 .px-2 {
@@ -744,14 +725,14 @@ video {
   color: rgb(29 78 216 / var(--tw-text-opacity));
 }
 
-.text-cyan-100 {
+.text-primary {
   --tw-text-opacity: 1;
-  color: rgb(207 250 254 / var(--tw-text-opacity));
+  color: rgb(29 161 242 / var(--tw-text-opacity));
 }
 
-.text-cyan-500 {
+.text-primary-white {
   --tw-text-opacity: 1;
-  color: rgb(6 182 212 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .outline-none {
@@ -777,12 +758,12 @@ video {
   transition-duration: 75ms;
 }
 
-.hover\:bg-cyan-600:hover {
+.hover\:bg-primary-dark:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(8 145 178 / var(--tw-bg-opacity));
+  background-color: rgb(26 140 216 / var(--tw-bg-opacity));
 }
 
-.hover\:text-cyan-600:hover {
+.hover\:text-primary-dark:hover {
   --tw-text-opacity: 1;
-  color: rgb(8 145 178 / var(--tw-text-opacity));
+  color: rgb(26 140 216 / var(--tw-text-opacity));
 }
