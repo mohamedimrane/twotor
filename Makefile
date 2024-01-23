@@ -4,3 +4,8 @@ run:
 	@echo ----------------------------------------------------
 	@go run *.go
 
+migrate:
+	@migrate -path migrations -database "sqlite3://database.sqlite" -verbose up
+
+migrate-down:
+	@migrate -path migrations -database "sqlite3://database.sqlite" -verbose down
