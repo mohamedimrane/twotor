@@ -6,5 +6,5 @@ import (
 )
 
 func Index(c *fiber.Ctx) error {
-	return Render(c, views.Index())
+	return Render(c, views.Home())
 }

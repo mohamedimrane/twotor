@@ -1,7 +1,9 @@
 package views
 
+import "github.com/mohamedimrane/twotor/views/layouts"
+
 templ Hello(name string) {
-	@layout("Hello") {
+	@layouts.Layout("Hello") {
 		<div>
 			<div class="px-2 py-2 text-2xl font-bold bg-green-300">
 				<p>Hello, { name }</p>

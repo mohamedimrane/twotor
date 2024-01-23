@@ -1,7 +1,9 @@
 package views
 
-templ Index() {
-	@layout("Home") {
+import "github.com/mohamedimrane/twotor/views/layouts"
+
+templ Home() {
+	@layouts.Layout("Home") {
 		<!-- Tweet form -->
 		<div class="flex border-b-2 border-b-neutral-xlight">
 			<!-- Avatar -->
