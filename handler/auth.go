@@ -7,7 +7,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/mohamedimrane/twotor/data"
 	"github.com/mohamedimrane/twotor/model"
-	"github.com/mohamedimrane/twotor/views"
+	views "github.com/mohamedimrane/twotor/views/page"
+	errpartial "github.com/mohamedimrane/twotor/views/partial/errors"
 )
 
 func (*HandlerWrapper) Index(c *fiber.Ctx) error {
@@ -36,11 +37,11 @@ func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 	validationErrors := Validate(hw.validate, u)
 	if validationErrors != nil {
 		validationErrorsStrings := userValidationErrorsToStrings(validationErrors)
-		return Render(c, views.CreateAccountErrors(validationErrorsStrings))
+		return Render(c, errpartial.CreateAccountErrors(validationErrorsStrings))
 	}
 
 	// Create user
-	_iu, err := hw.queries.CreateUser(c.Context(), data.CreateUserParams{
+	_, err := hw.queries.CreateUser(c.Context(), data.CreateUserParams{
 		Username:    u.Username,
 		Email:       u.Email,
 		Password:    u.Password,

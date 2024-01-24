@@ -1,6 +1,9 @@
-package views
+package page
 
-import "github.com/mohamedimrane/twotor/views/layouts"
+import (
+	"github.com/mohamedimrane/twotor/views/layouts"
+	"github.com/mohamedimrane/twotor/views/partial"
+)
 
 templ Home() {
 	@layouts.Layout("Home") {
@@ -35,9 +38,9 @@ templ Home() {
 		</div>
 		<!-- Twoot list -->
 		<div class="flex flex-col">
-			@twoot("user1", "hello guys", "avatar.png", "122k", "122k", "122k", "122k")
-			@twoot("user2", "hello world", "avatar.png", "122k", "122k", "122k", "122k")
-			@twoot("user3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic corrupti ea officia mollitia totam repellat illum pariatur odio laboriosam voluptate nisi soluta minima, eaque praesentium nulla maiores? Aspernatur, dolorem!", "avatar.png", "122k", "122k", "122k", "122k")
+			@partial.Twoot("user1", "hello guys", "avatar.png", "122k", "122k", "122k", "122k")
+			@partial.Twoot("user2", "hello world", "avatar.png", "122k", "122k", "122k", "122k")
+			@partial.Twoot("user3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic corrupti ea officia mollitia totam repellat illum pariatur odio laboriosam voluptate nisi soluta minima, eaque praesentium nulla maiores? Aspernatur, dolorem!", "avatar.png", "122k", "122k", "122k", "122k")
 		</div>
 	}
 }
