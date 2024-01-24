@@ -1,0 +1,9 @@
+package views
+
+templ CreateAccountErrors(errors []string) {
+	<ul class="list-disc text-red-500 text-sm">
+		for _, error := range errors {
+			<li>{ error }</li>
+		}
+	</ul>
+}

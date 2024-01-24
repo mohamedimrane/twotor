@@ -7,39 +7,58 @@ package data
 
 import (
 	"context"
+	"database/sql"
 )
 
-const listUsers = `-- name: ListUsers :many
-SELECT id, username, email, password, bio, display_name FROM users
-ORDER BY id
+const createUser = `-- name: CreateUser :one
+INSERT INTO users ( username, email, password, display_name, bio )
+VALUES ( ?, ?, ?, ?, ? )
+RETURNING id, username, email, password, bio, display_name
 `
 
-func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
-	rows, err := q.db.QueryContext(ctx, listUsers)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []User
-	for rows.Next() {
-		var i User
-		if err := rows.Scan(
-			&i.ID,
-			&i.Username,
-			&i.Email,
-			&i.Password,
-			&i.Bio,
-			&i.DisplayName,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
+type CreateUserParams struct {
+	Username    string
+	Email       string
+	Password    string
+	DisplayName sql.NullString
+	Bio         sql.NullString
+}
+
+func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
+	row := q.db.QueryRowContext(ctx, createUser,
+		arg.Username,
+		arg.Email,
+		arg.Password,
+		arg.DisplayName,
+		arg.Bio,
+	)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Username,
+		&i.Email,
+		&i.Password,
+		&i.Bio,
+		&i.DisplayName,
+	)
+	return i, err
+}
+
+const getUser = `-- name: GetUser :one
+SELECT id, username, email, password, bio, display_name FROM users
+WHERE id = ? LIMIT 1
+`
+
+func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUser, id)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Username,
+		&i.Email,
+		&i.Password,
+		&i.Bio,
+		&i.DisplayName,
+	)
+	return i, err
 }

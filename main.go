@@ -18,15 +18,18 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
-	Queries = data.New(db)
+	queries := data.New(db)
 
 	app := fiber.New()
 
 	app.Static("/static", "./static")
 
-	app.Get("/", handler.Index)
-	app.Get("/signup", handler.SignUp)
+	hw := handler.New(queries)
+
+	app.Get("/", hw.Index)
+	app.Get("/signup", hw.SignUp)
+
+	app.Post("/api/create-user", hw.CreateUser)
 
 	app.Get("/hello", handler.Hello)
 	app.Get("/list", handler.List)

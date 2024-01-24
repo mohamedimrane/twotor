@@ -1,3 +1,8 @@
--- name: ListUsers :many
+-- name: CreateUser :one
+INSERT INTO users ( username, email, password, display_name, bio )
+VALUES ( ?, ?, ?, ?, ? )
+RETURNING *;
+
+-- name: GetUser :one
 SELECT * FROM users
-ORDER BY id;
+WHERE id = ? LIMIT 1;
