@@ -1,6 +1,7 @@
 run:
 	@npx tailwindcss -i ./static/styles/input.css -o ./static/styles/output.css
 	@templ generate
+	@sqlc generate
 	@echo ----------------------------------------------------
 	@go run *.go
 
