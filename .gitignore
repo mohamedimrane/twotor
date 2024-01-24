@@ -10,3 +10,5 @@ node_modules
 vendor/
 go.work
 database.sqlite
+*_templ.go
+.ignore

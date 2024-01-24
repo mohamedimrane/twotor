@@ -1,7 +1,0 @@
-# This file is specific to the helix editor, you can delete it or modify it if you want.
-# This file lists files and folders that will not be displayed by helix.
-node_modules
-views/*_templ.go
-styles/output.css
-go.sum
-package-lock.json
