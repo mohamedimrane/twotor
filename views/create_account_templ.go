@@ -12,7 +12,7 @@ import "bytes"
 
 import "github.com/mohamedimrane/twotor/views/layouts"
 
-func UnloggedIndex() templ.Component {
+func CreateAccount() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -31,43 +31,52 @@ func UnloggedIndex() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"h-screen flex flex-row\"><div class=\"w-1/2 flex justify-around items-center\"><img class=\"w-2/5\" src=\"/static/logos/Z.png\" alt=\"Z\"></div><div class=\"w-1/2 mx-10 flex flex-col justify-center space-y-10\"><h1 class=\"text-8xl font-bold\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-1/3 h-screen mx-auto flex items-center\"><div class=\"bg-neutral-xxlight rounded-lg w-full px-20 py-16 shadow-md space-y-10\"><h1 class=\"text-3xl font-bold\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Var3 := `Hello there`
+			templ_7745c5c3_Var3 := `Create an account`
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><h2 class=\"text-5xl font-bold\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><form class=\"w-full space-y-5\"><div class=\"space-y-2 flex flex-col\"><label for=\"email\" class=\"block text-sm font-bold ml-2\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Var4 := `Join today.`
+			templ_7745c5c3_Var4 := `Your email`
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><div class=\"w-full flex flex-col space-y-4\"><a href=\"/signup\"><button class=\"px-6 py-2 w-1/3 text-primary-white bg-primary hover:bg-primary-dark transition duration-75 rounded-full\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label> <input type=\"email\" id=\"email\" class=\"border border-neutral-xlight rounded-full px-6 py-2\" placeholder=\"test@tester.com\" required></div><div class=\"space-y-2 flex flex-col\"><label for=\"email\" class=\"block text-sm font-bold ml-2\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Var5 := `Create account`
+			templ_7745c5c3_Var5 := `Your username`
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></a> <button class=\"px-6 py-2 w-1/3 text-neutral-xxlight bg-neutral-light hover:bg-neutral-dark transition duration-75 rounded-full\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label> <input type=\"email\" id=\"email\" class=\"border border-neutral-xlight rounded-full px-6 py-2\" placeholder=\"lefishouchocolat\" required></div><div class=\"space-y-2 flex flex-col\"><label for=\"password\" class=\"block text-sm font-bold ml-2\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Var6 := `Log into your account`
+			templ_7745c5c3_Var6 := `Your password`
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var6)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></div></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label> <input type=\"password\" id=\"password\" class=\"border border-neutral-xlight rounded-full px-6 py-2\" placeholder=\"verysecurepassword\" required></div><button class=\"px-6 py-2 text-primary-white bg-primary hover:bg-primary-dark transition duration-75 rounded-full\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Var7 := `Sign up`
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></form></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -76,7 +85,7 @@ func UnloggedIndex() templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = layouts.Base("").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = layouts.Base("Sign up").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -14,3 +14,7 @@ func Index(c *fiber.Ctx) error {
 		return Render(c, views.UnloggedIndex())
 	}
 }
+
+func SignUp(c *fiber.Ctx) error {
+	return Render(c, views.CreateAccount())
+}

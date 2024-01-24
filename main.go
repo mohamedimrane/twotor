@@ -26,6 +26,7 @@ func main() {
 	app.Static("/static", "./static")
 
 	app.Get("/", handler.Index)
+	app.Get("/signup", handler.SignUp)
 
 	app.Get("/hello", handler.Hello)
 	app.Get("/list", handler.List)
