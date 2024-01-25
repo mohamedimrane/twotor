@@ -30,6 +30,13 @@ func Render(c *fiber.Ctx, component templ.Component, options ...func(*templ.Comp
 	return adaptor.HTTPHandler(componentHandler)(c)
 }
 
+// Using HTMX requires setting the "HX-Redirect" response header to redirect the browser.
+// Not doing that will result to the redirected page being rendered inside the HTMX target element.
+func Redirect(c *fiber.Ctx, location string) error {
+	c.Set("HX-Redirect", location)
+	return nil
+}
+
 type ValidationError struct {
 	ActualField string
 	Field       string

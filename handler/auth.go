@@ -55,5 +55,5 @@ func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 	// Authenticate user
 	// Return success message
 
-	return c.Redirect("/")
+	return Redirect(c, "/")
 }
