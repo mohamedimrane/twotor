@@ -3,7 +3,9 @@ package main
 import (
 	"database/sql"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 
 	"github.com/gofiber/fiber/v2"
@@ -14,12 +16,20 @@ import (
 var Queries *data.Queries
 
 func main() {
+	// Load environment varibles from file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	// Database setup
 	db, err := sql.Open("sqlite3", "database.sqlite")
 	if err != nil {
 		log.Fatalln(err)
 	}
 	queries := data.New(db)
 
+	// Server setup
 	app := fiber.New()
 
 	app.Static("/static", "./static")
@@ -34,5 +44,6 @@ func main() {
 	app.Get("/hello", handler.Hello)
 	app.Get("/list", handler.List)
 
-	log.Fatal(app.Listen("localhost:3000"))
+	port := os.Getenv("PORT")
+	log.Fatal(app.Listen("localhost:" + port))
 }

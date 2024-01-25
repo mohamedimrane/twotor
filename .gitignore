@@ -12,3 +12,4 @@ go.work
 database.sqlite
 *_templ.go
 .ignore
+.env
