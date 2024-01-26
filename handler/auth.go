@@ -3,33 +3,35 @@ package handler
 import (
 	"database/sql"
 	"log"
+	"os"
+	"strconv"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/mohamedimrane/twotor/data"
 	"github.com/mohamedimrane/twotor/model"
-	views "github.com/mohamedimrane/twotor/views/page"
-	errpartial "github.com/mohamedimrane/twotor/views/partial/errors"
+	"github.com/mohamedimrane/twotor/views/page"
+	parterr "github.com/mohamedimrane/twotor/views/partial/errors"
 )
 
 func (*HandlerWrapper) Index(c *fiber.Ctx) error {
-	const isLoggedIn = false
+	return Render(c, page.UnloggedIndex())
+}
 
-	if isLoggedIn {
-		return Render(c, views.Home())
-	} else {
-		return Render(c, views.UnloggedIndex())
-	}
+func (*HandlerWrapper) Home(c *fiber.Ctx) error {
+	log.Printf("%+v", c.Locals("user").(model.User))
+	return Render(c, page.Home())
 }
 
 func (*HandlerWrapper) SignUp(c *fiber.Ctx) error {
-	return Render(c, views.CreateAccount())
+	return Render(c, page.CreateAccount())
 }
 
 func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 	// Parse user
 	u := new(model.User)
 	if err := c.BodyParser(u); err != nil {
-		log.Println(err)
 		return err
 	}
 
@@ -37,11 +39,11 @@ func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 	validationErrors := Validate(hw.validate, u)
 	if validationErrors != nil {
 		validationErrorsStrings := userValidationErrorsToStrings(validationErrors)
-		return Render(c, errpartial.CreateAccountErrors(validationErrorsStrings))
+		return Render(c, parterr.CreateAccountErrors(validationErrorsStrings))
 	}
 
 	// Create user
-	_, err := hw.queries.CreateUser(c.Context(), data.CreateUserParams{
+	udb, err := hw.queries.CreateUser(c.Context(), data.CreateUserParams{
 		Username:    u.Username,
 		Email:       u.Email,
 		Password:    u.Password,
@@ -53,7 +55,24 @@ func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 	}
 
 	// Authenticate user
-	// Return success message
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": strconv.Itoa(int(udb.ID)),
+		"exp": time.Now().Add(time.Hour).Unix(),
+	})
 
-	return Redirect(c, "/")
+	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
+	if err != nil {
+		return err
+	}
+
+	cookie := &fiber.Cookie{
+		Name:     "token",
+		Value:    tokenString,
+		Expires:  time.Now().Add(time.Hour),
+		HTTPOnly: true,
+	}
+	c.Cookie(cookie)
+
+	// Return success message
+	return Redirect(c, "/home")
 }

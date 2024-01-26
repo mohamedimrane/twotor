@@ -11,6 +11,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/mohamedimrane/twotor/data"
 	"github.com/mohamedimrane/twotor/handler"
+	"github.com/mohamedimrane/twotor/middleware"
 )
 
 var Queries *data.Queries
@@ -35,9 +36,12 @@ func main() {
 	app.Static("/static", "./static")
 
 	hw := handler.New(queries)
+	mw := middleware.New(queries)
 
 	app.Get("/", hw.Index)
 	app.Get("/signup", hw.SignUp)
+
+	app.Get("/home", mw.Authenticated, hw.Home)
 
 	app.Post("/api/create-user", hw.CreateUser)
 
