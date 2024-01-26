@@ -38,12 +38,13 @@ func main() {
 	hw := handler.New(queries)
 	mw := middleware.New(queries)
 
-	app.Get("/", hw.Index)
-	app.Get("/signup", hw.SignUp)
+	// Unauthenticated routes
+	app.Get("/", mw.Unauthenticated, hw.Index)
+	app.Get("/signup", mw.Unauthenticated, hw.SignUp)
+	app.Post("/api/create-user", mw.Unauthenticated, hw.CreateUser)
 
+	// Autenticated routes
 	app.Get("/home", mw.Authenticated, hw.Home)
-
-	app.Post("/api/create-user", hw.CreateUser)
 
 	app.Get("/hello", handler.Hello)
 	app.Get("/list", handler.List)
