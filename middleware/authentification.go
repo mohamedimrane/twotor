@@ -45,7 +45,7 @@ func (mw *MiddlewareWrapper) Authenticated(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnauthorized).Redirect("/")
 	}
 
-	u, err := mw.queries.GetUser(c.Context(), int64(claimsId))
+	u, err := mw.queries.GetUserById(c.Context(), int64(claimsId))
 	if err != nil {
 		return c.Status(fiber.StatusUnauthorized).Redirect("/")
 	}
@@ -87,7 +87,7 @@ func (mw *MiddlewareWrapper) Unauthenticated(c *fiber.Ctx) error {
 		return c.Next()
 	}
 
-	_, err = mw.queries.GetUser(c.Context(), int64(claimsId))
+	_, err = mw.queries.GetUserById(c.Context(), int64(claimsId))
 	if err != nil {
 		return c.Next()
 	}

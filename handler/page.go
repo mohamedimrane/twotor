@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/mohamedimrane/twotor/model"
@@ -15,8 +13,6 @@ func (*HandlerWrapper) Index(c *fiber.Ctx) error {
 
 func (*HandlerWrapper) Home(c *fiber.Ctx) error {
 	user := c.Locals("user").(model.User)
-
-	log.Printf("%+v", user)
 
 	return Render(c, page.Home(user))
 }

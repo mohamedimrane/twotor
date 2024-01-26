@@ -41,7 +41,9 @@ func main() {
 	// Unauthenticated routes
 	app.Get("/", mw.Unauthenticated, hw.Index)
 	app.Get("/signup", mw.Unauthenticated, hw.SignUp)
+	app.Get("/login", mw.Unauthenticated, hw.LogIn)
 	app.Post("/api/create-user", mw.Unauthenticated, hw.CreateUser)
+	app.Post("/api/login-user", mw.Unauthenticated, hw.LogInUser)
 
 	// Autenticated routes
 	app.Get("/home", mw.Authenticated, hw.Home)
