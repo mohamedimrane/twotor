@@ -93,8 +93,14 @@ func userValidationErrorsToStrings(validationErrors []ValidationError) []string 
 			}
 
 		case "Password":
-			str := "Password is required"
-			validationErrorsStrings = append(validationErrorsStrings, str)
+			switch err.ActualField {
+			case "required":
+				str := "Password is required"
+				validationErrorsStrings = append(validationErrorsStrings, str)
+			case "min", "max":
+				str := "Password must be 8 to 32 characters long"
+				validationErrorsStrings = append(validationErrorsStrings, str)
+			}
 
 		case "DisplayName":
 			str := "Display name must be 1 to 50 characters long"

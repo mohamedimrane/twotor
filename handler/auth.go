@@ -12,6 +12,7 @@ import (
 	"github.com/mohamedimrane/twotor/model"
 	"github.com/mohamedimrane/twotor/views/page"
 	parterr "github.com/mohamedimrane/twotor/views/partial/errors"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func (*HandlerWrapper) SignUp(c *fiber.Ctx) error {
@@ -32,11 +33,16 @@ func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 		return Render(c, parterr.CreateAccountErrors(validationErrorsStrings))
 	}
 
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), 14)
+	if err != nil {
+		return err
+	}
+
 	// Create user
 	udb, err := hw.queries.CreateUser(c.Context(), data.CreateUserParams{
 		Username:    u.Username,
 		Email:       u.Email,
-		Password:    u.Password,
+		Password:    string(hashedPassword),
 		DisplayName: sql.NullString{String: u.DisplayName},
 		Bio:         sql.NullString{String: u.Bio},
 	})
