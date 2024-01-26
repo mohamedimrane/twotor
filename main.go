@@ -5,10 +5,10 @@ import (
 	"log"
 	"os"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/mohamedimrane/twotor/data"
 	"github.com/mohamedimrane/twotor/handler"
 	"github.com/mohamedimrane/twotor/middleware"

@@ -3,10 +3,11 @@ package page
 import (
 	"github.com/mohamedimrane/twotor/views/layouts"
 	"github.com/mohamedimrane/twotor/views/partial"
+	"github.com/mohamedimrane/twotor/model"
 )
 
-templ Home() {
-	@layouts.Layout("Home") {
+templ Home(user model.User) {
+	@layouts.Layout("Home " + user.Username) {
 		<!-- Tweet form -->
 		<div class="flex border-b-2 border-b-neutral-xlight">
 			<!-- Avatar -->

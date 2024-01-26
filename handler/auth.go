@@ -2,7 +2,6 @@ package handler
 
 import (
 	"database/sql"
-	"log"
 	"os"
 	"strconv"
 	"time"
@@ -14,15 +13,6 @@ import (
 	"github.com/mohamedimrane/twotor/views/page"
 	parterr "github.com/mohamedimrane/twotor/views/partial/errors"
 )
-
-func (*HandlerWrapper) Index(c *fiber.Ctx) error {
-	return Render(c, page.UnloggedIndex())
-}
-
-func (*HandlerWrapper) Home(c *fiber.Ctx) error {
-	log.Printf("%+v", c.Locals("user").(model.User))
-	return Render(c, page.Home())
-}
 
 func (*HandlerWrapper) SignUp(c *fiber.Ctx) error {
 	return Render(c, page.CreateAccount())
