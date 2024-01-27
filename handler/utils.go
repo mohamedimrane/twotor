@@ -68,58 +68,53 @@ func Validate(v *validator.Validate, d interface{}) []ValidationError {
 	return validationErrors
 }
 
-func userValidationErrorsToStrings(validationErrors []ValidationError) []string {
-	var validationErrorsStrings []string
+func userValErrsToStrings(validationErrors []ValidationError) []string {
+	var errsStr []string
 	for _, err := range validationErrors {
 		switch err.ActualField {
 		case "Username":
 			switch err.ActualTag {
 			case "required":
-				str := "User name is required"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "User name is required")
 			case "excludesall":
-				str := "Username cannot contain spaces"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "Username cannot contain spaces")
 			case "min", "max":
-				str := "User name must be 2 to 50 characters long"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "User name must be 2 to 50 characters long")
 			}
 
 		case "Email":
 			switch err.ActualTag {
 			case "required":
-				str := "Email is required"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "Email is required")
 			case "excludesall":
-				str := "Email cannot contain spaces"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "Email cannot contain spaces")
 			case "email":
-				str := "Invalid email"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "Invalid email")
 			}
 
 		case "Password":
 			switch err.ActualTag {
 			case "required":
-				str := "Password is required"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "Password is required")
 			case "excludesall":
-				str := "Password cannot contain spaces"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "Password cannot contain spaces")
 			case "min", "max":
-				str := "Password must be 8 to 32 characters long"
-				validationErrorsStrings = append(validationErrorsStrings, str)
+				errsStr = append(errsStr, "Password must be 8 to 32 characters long")
 			}
 
 		case "DisplayName":
-			str := "Display name must be 1 to 50 characters long"
-			validationErrorsStrings = append(validationErrorsStrings, str)
+			switch err.ActualTag {
+			case "min", "max":
+				errsStr = append(errsStr, "Display name must be 1 to 50 characters long")
+			}
 
 		case "Bio":
-			str := "Bio cannot be longer than 200 characters"
-			validationErrorsStrings = append(validationErrorsStrings, str)
+			switch err.ActualTag {
+			case "min", "max":
+				errsStr = append(errsStr, "Bio cannot be longer than 200 characters")
+			}
 		}
 	}
 
-	return validationErrorsStrings
+	return errsStr
 }

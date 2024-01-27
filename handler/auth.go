@@ -2,7 +2,6 @@ package handler
 
 import (
 	"database/sql"
-	"log"
 	"os"
 	"strconv"
 	"time"
@@ -37,21 +36,35 @@ func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 	}
 
 	// Validate user
-	validationErrors := Validate(hw.validate, u)
-	if validationErrors != nil {
-		validationErrorsStrings := userValidationErrorsToStrings(validationErrors)
-		return Render(c, parterr.CreateAccountErrors(validationErrorsStrings))
+	errsStr := []string{}
+
+	// verify email availability
+	if _, err := hw.queries.GetUserByEmail(c.Context(), u.Email); err == nil {
+		errsStr = append(errsStr, "Email already taken")
 	}
 
+	// verify username availability
+	if _, err := hw.queries.GetUserByUsername(c.Context(), u.Username); err == nil {
+		errsStr = append(errsStr, "Username already taken")
+	}
+
+	// validate input
+	errs := Validate(hw.validate, u)
+	if errs != nil {
+		errsStr = append(errsStr, userValErrsToStrings(errs)...)
+	}
+
+	// return erros if needed
+	if len(errsStr) != 0 {
+		return Render(c, parterr.CreateAccountErrors(errsStr))
+	}
+
+	// Create user
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), 14)
 	if err != nil {
 		return err
 	}
 
-	log.Println(u.Password)
-	log.Println(string(hashedPassword))
-
-	// Create user
 	udb, err := hw.queries.CreateUser(c.Context(), data.CreateUserParams{
 		Username:    u.Username,
 		Email:       u.Email,

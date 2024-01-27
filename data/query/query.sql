@@ -10,3 +10,7 @@ WHERE id = ? LIMIT 1;
 -- name: GetUserByEmail :one
 SELECT * FROM users
 WHERE email = ? LIMIT 1;
+
+-- name: GetUserByUsername :one
+SELECT * FROM users
+WHERE username = ? LIMIT 1;
