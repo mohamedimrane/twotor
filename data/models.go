@@ -8,6 +8,11 @@ import (
 	"database/sql"
 )
 
+type Twoot struct {
+	ID       int64
+	Contents string
+}
+
 type User struct {
 	ID          int64
 	Username    string
