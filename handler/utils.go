@@ -77,6 +77,9 @@ func userValidationErrorsToStrings(validationErrors []ValidationError) []string 
 			case "required":
 				str := "User name is required"
 				validationErrorsStrings = append(validationErrorsStrings, str)
+			case "excludesall":
+				str := "Username cannot contain spaces"
+				validationErrorsStrings = append(validationErrorsStrings, str)
 			case "min", "max":
 				str := "User name must be 2 to 50 characters long"
 				validationErrorsStrings = append(validationErrorsStrings, str)
@@ -87,15 +90,21 @@ func userValidationErrorsToStrings(validationErrors []ValidationError) []string 
 			case "required":
 				str := "Email is required"
 				validationErrorsStrings = append(validationErrorsStrings, str)
+			case "excludesall":
+				str := "Email cannot contain spaces"
+				validationErrorsStrings = append(validationErrorsStrings, str)
 			case "email":
 				str := "Invalid email"
 				validationErrorsStrings = append(validationErrorsStrings, str)
 			}
 
 		case "Password":
-			switch err.ActualField {
+			switch err.ActualTag {
 			case "required":
 				str := "Password is required"
+				validationErrorsStrings = append(validationErrorsStrings, str)
+			case "excludesall":
+				str := "Password cannot contain spaces"
 				validationErrorsStrings = append(validationErrorsStrings, str)
 			case "min", "max":
 				str := "Password must be 8 to 32 characters long"
