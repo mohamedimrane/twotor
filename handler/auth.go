@@ -54,7 +54,7 @@ func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 		errsStr = append(errsStr, userValErrsToStrings(errs)...)
 	}
 
-	// return erros if needed
+	// return errors if needed
 	if len(errsStr) != 0 {
 		return Render(c, parterr.CreateAccountErrors(errsStr))
 	}
