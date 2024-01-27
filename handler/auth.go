@@ -24,6 +24,11 @@ func (*HandlerWrapper) LogIn(c *fiber.Ctx) error {
 	return Render(c, page.LogInToAccount())
 }
 
+func (*HandlerWrapper) LogOut(c *fiber.Ctx) error {
+	c.ClearCookie("token")
+	return c.Redirect("/")
+}
+
 func (hw *HandlerWrapper) CreateUser(c *fiber.Ctx) error {
 	// Parse user
 	u := new(model.User)
