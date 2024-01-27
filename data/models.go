@@ -11,6 +11,7 @@ import (
 type Twoot struct {
 	ID       int64
 	Contents string
+	UserID   int64
 }
 
 type User struct {

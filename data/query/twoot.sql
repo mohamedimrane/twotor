@@ -1,6 +1,6 @@
 -- name: CreateTwoot :one
-INSERT INTO twoots ( contents )
-VALUES ( ? )
+INSERT INTO twoots ( contents, user_ID )
+VALUES ( ?, ? )
 RETURNING *;
 
 -- name: GetTwootById :one

@@ -10,32 +10,37 @@ import (
 )
 
 const createTwoot = `-- name: CreateTwoot :one
-INSERT INTO twoots ( contents )
-VALUES ( ? )
-RETURNING id, contents
+INSERT INTO twoots ( contents, user_ID )
+VALUES ( ?, ? )
+RETURNING id, contents, user_id
 `
 
-func (q *Queries) CreateTwoot(ctx context.Context, contents string) (Twoot, error) {
-	row := q.db.QueryRowContext(ctx, createTwoot, contents)
+type CreateTwootParams struct {
+	Contents string
+	UserID   int64
+}
+
+func (q *Queries) CreateTwoot(ctx context.Context, arg CreateTwootParams) (Twoot, error) {
+	row := q.db.QueryRowContext(ctx, createTwoot, arg.Contents, arg.UserID)
 	var i Twoot
-	err := row.Scan(&i.ID, &i.Contents)
+	err := row.Scan(&i.ID, &i.Contents, &i.UserID)
 	return i, err
 }
 
 const getTwootById = `-- name: GetTwootById :one
-SELECT id, contents FROM twoots
+SELECT id, contents, user_id FROM twoots
 WHERE id = ? LIMIT 1
 `
 
 func (q *Queries) GetTwootById(ctx context.Context, id int64) (Twoot, error) {
 	row := q.db.QueryRowContext(ctx, getTwootById, id)
 	var i Twoot
-	err := row.Scan(&i.ID, &i.Contents)
+	err := row.Scan(&i.ID, &i.Contents, &i.UserID)
 	return i, err
 }
 
 const listTwoots = `-- name: ListTwoots :many
-SELECT id, contents FROM twoots
+SELECT id, contents, user_id FROM twoots
 `
 
 func (q *Queries) ListTwoots(ctx context.Context) ([]Twoot, error) {
@@ -47,7 +52,7 @@ func (q *Queries) ListTwoots(ctx context.Context) ([]Twoot, error) {
 	var items []Twoot
 	for rows.Next() {
 		var i Twoot
-		if err := rows.Scan(&i.ID, &i.Contents); err != nil {
+		if err := rows.Scan(&i.ID, &i.Contents, &i.UserID); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
