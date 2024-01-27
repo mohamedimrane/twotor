@@ -17,10 +17,16 @@ templ Home(user model.User) {
 				</div>
 			</div>
 			<!-- Form -->
-			<div class="w-full py-9 px-4 space-y-2 flex flex-col">
+			<form
+				class="w-full py-9 px-4 space-y-2 flex flex-col"
+				hx-post="/api/create-twoot"
+				hx-encoding="multipart/form-data"
+				hx-target="#errors"
+			>
 				<!-- Text area -->
 				<div>
-					<textarea class="w-full resize-y text-lg outline-none" rows="2" placeholder="hello?"></textarea>
+					<textarea name="contents" class="w-full resize-y text-lg outline-none" rows="2" placeholder="hello?"></textarea>
+					<div id="errors"></div>
 				</div>
 				<!-- Action buttons -->
 				<div class="flex justify-between">
@@ -35,7 +41,7 @@ templ Home(user model.User) {
 						<button class="px-6 py-2 text-primary-white bg-primary hover:bg-primary-dark transition duration-75 rounded-full">Twoot</button>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 		<!-- Twoot list -->
 		<div class="flex flex-col">
