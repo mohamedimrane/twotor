@@ -13,3 +13,7 @@ database.sqlite
 *_templ.go
 .ignore
 .env
+data/db.go 
+data/models.go 
+data/*.sql.go
+static/styles/output.css
