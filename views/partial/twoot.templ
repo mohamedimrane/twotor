@@ -1,6 +1,11 @@
 package partial
 
-templ Twoot(userName, contents, ppLink, commentsCount, repostsCount, likesCount, viewsCount string) {
+import (
+	"github.com/mohamedimrane/twotor/data"
+	"github.com/rvflash/elapsed"
+)
+
+templ Twoot(user data.User, twoot data.Twoot, ppLink, commentsCount, repostsCount, likesCount, viewsCount string) {
 	<div class="w-full px-4 py-4 space-x-2 border-b-2 border-b-neutral-xlight flex">
 		<!-- Avatar -->
 		<div class="w-1/12 flex justify-around">
@@ -11,12 +16,14 @@ templ Twoot(userName, contents, ppLink, commentsCount, repostsCount, likesCount,
 		<!-- Body -->
 		<div class="w-full">
 			<!-- Info -->
-			<div class="flex font-bold">
-				{ userName }
+			<div class="flex">
+				<span class="font-bold">&commat;{ user.Username }</span>
+				&nbsp;
+				<span class="text-neutral-dark font-normal">· { elapsed.Time(twoot.CreatedAt) }</span>
 			</div>
 			<!-- Contents -->
 			<div class="flex">
-				{ contents }
+				{ twoot.Contents }
 			</div>
 			<!-- Action buttons -->
 			<div class="mt-4 flex justify-between items-center">
