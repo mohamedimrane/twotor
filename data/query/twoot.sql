@@ -4,8 +4,11 @@ VALUES ( ?, ? )
 RETURNING *;
 
 -- name: GetTwootById :one
-SELECT * FROM twoots
-WHERE id = ? LIMIT 1;
+SELECT sqlc.embed(twoots), sqlc.embed(users) FROM twoots
+INNER JOIN users ON twoots.user_ID = users.ID
+WHERE users.ID = ? LIMIT 1;
 
 -- name: ListTwoots :many
-SELECT * FROM twoots;
+SELECT sqlc.embed(twoots), sqlc.embed(users) FROM twoots
+INNER JOIN users ON twoots.user_ID = users.ID;
+

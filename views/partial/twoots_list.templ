@@ -1,0 +1,9 @@
+package partial
+
+import "github.com/mohamedimrane/twotor/data"
+
+templ TwootsList(twoots []data.ListTwootsRow) {
+	for _, t := range twoots {
+		@Twoot(t.User.Username, t.Twoot.Contents, "avatar.png", "122k", "122k", "122k", "122k")
+	}
+}

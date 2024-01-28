@@ -44,10 +44,10 @@ templ Home(user model.User) {
 			</form>
 		</div>
 		<!-- Twoot list -->
-		<div class="flex flex-col">
-			@partial.Twoot("user1", "hello guys", "avatar.png", "122k", "122k", "122k", "122k")
-			@partial.Twoot("user2", "hello world", "avatar.png", "122k", "122k", "122k", "122k")
-			@partial.Twoot("user3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto hic corrupti ea officia mollitia totam repellat illum pariatur odio laboriosam voluptate nisi soluta minima, eaque praesentium nulla maiores? Aspernatur, dolorem!", "avatar.png", "122k", "122k", "122k", "122k")
-		</div>
+		<div
+			class="flex flex-col"
+			hx-get="api/list-twoots"
+			hx-trigger="load"
+		></div>
 	}
 }

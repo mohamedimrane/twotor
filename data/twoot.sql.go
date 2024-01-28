@@ -28,31 +28,63 @@ func (q *Queries) CreateTwoot(ctx context.Context, arg CreateTwootParams) (Twoot
 }
 
 const getTwootById = `-- name: GetTwootById :one
-SELECT id, contents, user_id FROM twoots
-WHERE id = ? LIMIT 1
+SELECT twoots.id, twoots.contents, twoots.user_id, users.id, users.username, users.email, users.password, users.bio, users.display_name FROM twoots
+INNER JOIN users ON twoots.user_ID = users.ID
+WHERE users.ID = ? LIMIT 1
 `
 
-func (q *Queries) GetTwootById(ctx context.Context, id int64) (Twoot, error) {
+type GetTwootByIdRow struct {
+	Twoot Twoot
+	User  User
+}
+
+func (q *Queries) GetTwootById(ctx context.Context, id int64) (GetTwootByIdRow, error) {
 	row := q.db.QueryRowContext(ctx, getTwootById, id)
-	var i Twoot
-	err := row.Scan(&i.ID, &i.Contents, &i.UserID)
+	var i GetTwootByIdRow
+	err := row.Scan(
+		&i.Twoot.ID,
+		&i.Twoot.Contents,
+		&i.Twoot.UserID,
+		&i.User.ID,
+		&i.User.Username,
+		&i.User.Email,
+		&i.User.Password,
+		&i.User.Bio,
+		&i.User.DisplayName,
+	)
 	return i, err
 }
 
 const listTwoots = `-- name: ListTwoots :many
-SELECT id, contents, user_id FROM twoots
+SELECT twoots.id, twoots.contents, twoots.user_id, users.id, users.username, users.email, users.password, users.bio, users.display_name FROM twoots
+INNER JOIN users ON twoots.user_ID = users.ID
 `
 
-func (q *Queries) ListTwoots(ctx context.Context) ([]Twoot, error) {
+type ListTwootsRow struct {
+	Twoot Twoot
+	User  User
+}
+
+func (q *Queries) ListTwoots(ctx context.Context) ([]ListTwootsRow, error) {
 	rows, err := q.db.QueryContext(ctx, listTwoots)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Twoot
+	var items []ListTwootsRow
 	for rows.Next() {
-		var i Twoot
-		if err := rows.Scan(&i.ID, &i.Contents, &i.UserID); err != nil {
+		var i ListTwootsRow
+		if err := rows.Scan(
+			&i.Twoot.ID,
+			&i.Twoot.Contents,
+			&i.Twoot.UserID,
+			&i.User.ID,
+			&i.User.Username,
+			&i.User.Email,
+			&i.User.Password,
+			&i.User.Bio,
+			&i.User.DisplayName,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
