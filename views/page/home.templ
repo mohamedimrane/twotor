@@ -2,7 +2,6 @@ package page
 
 import (
 	"github.com/mohamedimrane/twotor/views/layouts"
-	"github.com/mohamedimrane/twotor/views/partial"
 	"github.com/mohamedimrane/twotor/model"
 )
 
@@ -22,6 +21,7 @@ templ Home(user model.User) {
 				hx-post="/api/create-twoot"
 				hx-encoding="multipart/form-data"
 				hx-target="#errors"
+				hx-on::after-request="this.reset()"
 			>
 				<!-- Text area -->
 				<div>
@@ -38,7 +38,7 @@ templ Home(user model.User) {
 					</div>
 					<!-- Tweet button -->
 					<div>
-						<button class="px-6 py-2 text-primary-white bg-primary hover:bg-primary-dark transition duration-75 rounded-full">Twoot</button>
+						<button id="twoot-button" class="px-6 py-2 text-primary-white bg-primary hover:bg-primary-dark transition duration-75 rounded-full">Twoot</button>
 					</div>
 				</div>
 			</form>
@@ -47,7 +47,7 @@ templ Home(user model.User) {
 		<div
 			class="flex flex-col"
 			hx-get="api/list-twoots"
-			hx-trigger="load"
+			hx-trigger="load, click delay:500ms from:#twoot-button, every 30s"
 		></div>
 	}
 }
