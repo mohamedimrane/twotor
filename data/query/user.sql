@@ -1,6 +1,6 @@
 -- name: CreateUser :one
-INSERT INTO users ( username, email, password, display_name, bio )
-VALUES ( ?, ?, ?, ?, ? )
+INSERT INTO users ( username, email, password, display_name, bio, created_at, updated_at )
+VALUES ( ?, ?, ?, ?, ?, DATETIME("now"), DATETIME("now") )
 RETURNING *;
 
 -- name: GetUserById :one

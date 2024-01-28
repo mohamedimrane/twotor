@@ -1,6 +1,6 @@
 -- name: CreateTwoot :one
-INSERT INTO twoots ( contents, user_ID )
-VALUES ( ?, ? )
+INSERT INTO twoots ( contents, user_ID, created_at )
+VALUES ( ?, ?, DATETIME("now") )
 RETURNING *;
 
 -- name: GetTwootById :one
