@@ -5,7 +5,7 @@ import (
 	"github.com/mohamedimrane/twotor/data"
 	"github.com/mohamedimrane/twotor/model"
 	"github.com/mohamedimrane/twotor/views/partial"
-	// parterr "github.com/mohamedimrane/twotor/views/partial/errors"
+	parterr "github.com/mohamedimrane/twotor/views/partial/errors"
 )
 
 func (hw *HandlerWrapper) CreateTwoot(c *fiber.Ctx) error {
@@ -16,21 +16,14 @@ func (hw *HandlerWrapper) CreateTwoot(c *fiber.Ctx) error {
 	}
 
 	// Validate twoot
-	errsStr := []string{}
 	errs := Validate(hw.validate, t)
 	if errs != nil {
-		errsStr = append(errsStr, userValErrsToStrings(errs)...)
+		return Render(c, parterr.CreateTwootErrors())
 	}
 
 	// Get user id
 	u := c.Locals("user").(model.User)
 	t.UserId = u.Id
-
-	// return errors if needed
-	if len(errsStr) != 0 {
-		// return Render(c, parterr.CreateTwootErrors(errsStr))
-		return nil
-	}
 
 	// Create twoot
 	_, err := hw.queries.CreateTwoot(c.Context(), data.CreateTwootParams{
