@@ -14,8 +14,6 @@ import (
 	"github.com/mohamedimrane/twotor/middleware"
 )
 
-var Queries *data.Queries
-
 func main() {
 	// Load environment varibles from file
 	err := godotenv.Load()
