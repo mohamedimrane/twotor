@@ -46,6 +46,7 @@ func main() {
 
 	// User routes
 	app.Get("/home", mw.Authenticated, hw.Home)
+	app.Get("/twoot/:id", mw.Authenticated, hw.Twoot)
 	app.Post("api/create-twoot", mw.Authenticated, hw.CreateTwoot)
 	app.Get("api/list-twoots", mw.Authenticated, hw.ListTwoots)
 

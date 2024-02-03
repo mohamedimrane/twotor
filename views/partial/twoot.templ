@@ -3,57 +3,60 @@ package partial
 import (
 	"github.com/mohamedimrane/twotor/data"
 	"github.com/rvflash/elapsed"
+	"fmt"
 )
 
 templ Twoot(user data.User, twoot data.Twoot, ppLink, commentsCount, repostsCount, likesCount, viewsCount string) {
-	<div class="w-full px-4 py-4 space-x-2 border-b-2 border-b-neutral-xlight flex">
-		<!-- Avatar -->
-		<div class="w-1/12 flex justify-around">
-			<div class="w-12 h-12 rounded-full border-2 overflow-hidden">
-				<img class="w-full h-full" src={ "/static/images/" + ppLink } alt="avatar"/>
+	<a href={ templ.URL(fmt.Sprintf("/twoot/%d", twoot.ID)) }>
+		<div class="w-full px-4 py-4 space-x-2 border-b-2 border-b-neutral-xlight flex hover:bg-neutral-xxlight transition-colors duration-300">
+			<!-- Avatar -->
+			<div class="w-1/12 flex justify-around">
+				<div class="w-12 h-12 rounded-full border-2 overflow-hidden">
+					<img class="w-full h-full" src={ "/static/images/" + ppLink } alt="avatar"/>
+				</div>
+			</div>
+			<!-- Body -->
+			<div class="w-full">
+				<!-- Info -->
+				<div class="flex">
+					<span class="font-bold">&commat;{ user.Username }</span>
+					&nbsp;
+					<span class="text-neutral-dark font-normal">· { elapsed.Time(twoot.CreatedAt) }</span>
+				</div>
+				<!-- Contents -->
+				<div class="flex">
+					{ twoot.Contents }
+				</div>
+				<!-- Action buttons -->
+				<div class="mt-4 flex justify-between items-center">
+					<!-- Comments button -->
+					<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
+						<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m22 22l-4-4H4q-.825 0-1.412-.587T2 16V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4zM4 16h14.85L20 17.125V4H4zm0 0V4z"></path></svg>
+						<span class="text-base">{ commentsCount }</span>
+					</div>
+					<!-- Repost button -->
+					<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
+						<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m12.05 19l2.85-2.825l-2.85-2.825L11 14.4l1.075 1.075q-.7.025-1.362-.225t-1.188-.775q-.5-.5-.763-1.15t-.262-1.3q0-.425.113-.85t.312-.825l-1.1-1.1q-.425.625-.625 1.325T7 12q0 .95.375 1.875t1.1 1.65q.725.725 1.625 1.088t1.85.387l-.95.95zm4.125-4.25q.425-.625.625-1.325T17 12q0-.95-.363-1.888T15.55 8.45q-.725-.725-1.638-1.075t-1.862-.35L13 6.05L11.95 5L9.1 7.825l2.85 2.825L13 9.6l-1.1-1.1q.675 0 1.375.263t1.2.762q.5.5.763 1.15t.262 1.3q0 .425-.112.85t-.313.825zM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"></path></svg>
+						<span class="text-base">{ repostsCount }</span>
+					</div>
+					<!-- Like button -->
+					<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
+						<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812Q2.775 11.5 2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412q-.975 1.313-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675q.9-1.138 1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025q.9 1.137 2.45 2.675T12 18.3m0-6.825"></path></svg>
+						<span class="text-base">{ likesCount }</span>
+					</div>
+					<!-- Views indicator -->
+					<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
+						<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zM5 5v14zm3 5q-.425 0-.712.288T7 11v5q0 .425.288.713T8 17q.425 0 .713-.288T9 16v-5q0-.425-.288-.712T8 10m4-3q-.425 0-.712.288T11 8v8q0 .425.288.713T12 17q.425 0 .713-.288T13 16V8q0-.425-.288-.712T12 7m4 6q-.425 0-.712.288T15 14v2q0 .425.288.713T16 17q.425 0 .713-.288T17 16v-2q0-.425-.288-.712T16 13"></path></svg>
+						<span class="text-base">{ viewsCount }</span>
+					</div>
+					<div class="flex items-center space-x-4">
+						<!-- Bookmark button -->
+						<svg class="block w-6 h-6 text-neutral-dark hover:text-primary transition-colors duration-75" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21V5q0-.825.588-1.412T7 3h10q.825 0 1.413.588T19 5v16l-7-3zm2-3.05l5-2.15l5 2.15V5H7zM7 5h10z"></path></svg>
+						<!-- Share button -->
+						<svg class="block w-6 h-6 text-neutral-dark hover:text-primary transition-colors duration-75" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M6 23q-.825 0-1.412-.587T4 21V10q0-.825.588-1.412T6 8h3v2H6v11h12V10h-3V8h3q.825 0 1.413.588T20 10v11q0 .825-.587 1.413T18 23zm5-7V4.825l-1.6 1.6L8 5l4-4l4 4l-1.4 1.425l-1.6-1.6V16z"></path></svg>
+					</div>
+				</div>
 			</div>
 		</div>
-		<!-- Body -->
-		<div class="w-full">
-			<!-- Info -->
-			<div class="flex">
-				<span class="font-bold">&commat;{ user.Username }</span>
-				&nbsp;
-				<span class="text-neutral-dark font-normal">· { elapsed.Time(twoot.CreatedAt) }</span>
-			</div>
-			<!-- Contents -->
-			<div class="flex">
-				{ twoot.Contents }
-			</div>
-			<!-- Action buttons -->
-			<div class="mt-4 flex justify-between items-center">
-				<!-- Comments button -->
-				<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
-					<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m22 22l-4-4H4q-.825 0-1.412-.587T2 16V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4zM4 16h14.85L20 17.125V4H4zm0 0V4z"></path></svg>
-					<span class="text-base">{ commentsCount }</span>
-				</div>
-				<!-- Repost button -->
-				<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
-					<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m12.05 19l2.85-2.825l-2.85-2.825L11 14.4l1.075 1.075q-.7.025-1.362-.225t-1.188-.775q-.5-.5-.763-1.15t-.262-1.3q0-.425.113-.85t.312-.825l-1.1-1.1q-.425.625-.625 1.325T7 12q0 .95.375 1.875t1.1 1.65q.725.725 1.625 1.088t1.85.387l-.95.95zm4.125-4.25q.425-.625.625-1.325T17 12q0-.95-.363-1.888T15.55 8.45q-.725-.725-1.638-1.075t-1.862-.35L13 6.05L11.95 5L9.1 7.825l2.85 2.825L13 9.6l-1.1-1.1q.675 0 1.375.263t1.2.762q.5.5.763 1.15t.262 1.3q0 .425-.112.85t-.313.825zM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"></path></svg>
-					<span class="text-base">{ repostsCount }</span>
-				</div>
-				<!-- Like button -->
-				<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
-					<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m12 21l-1.45-1.3q-2.525-2.275-4.175-3.925T3.75 12.812Q2.775 11.5 2.388 10.4T2 8.15Q2 5.8 3.575 4.225T7.5 2.65q1.3 0 2.475.55T12 4.75q.85-1 2.025-1.55t2.475-.55q2.35 0 3.925 1.575T22 8.15q0 1.15-.387 2.25t-1.363 2.412q-.975 1.313-2.625 2.963T13.45 19.7zm0-2.7q2.4-2.15 3.95-3.687t2.45-2.675q.9-1.138 1.25-2.026T20 8.15q0-1.5-1-2.5t-2.5-1q-1.175 0-2.175.662T12.95 7h-1.9q-.375-1.025-1.375-1.687T7.5 4.65q-1.5 0-2.5 1t-1 2.5q0 .875.35 1.763t1.25 2.025q.9 1.137 2.45 2.675T12 18.3m0-6.825"></path></svg>
-					<span class="text-base">{ likesCount }</span>
-				</div>
-				<!-- Views indicator -->
-				<div class="flex items-center space-x-1 text-neutral-dark hover:text-primary transition-colors duration-75">
-					<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zM5 5v14zm3 5q-.425 0-.712.288T7 11v5q0 .425.288.713T8 17q.425 0 .713-.288T9 16v-5q0-.425-.288-.712T8 10m4-3q-.425 0-.712.288T11 8v8q0 .425.288.713T12 17q.425 0 .713-.288T13 16V8q0-.425-.288-.712T12 7m4 6q-.425 0-.712.288T15 14v2q0 .425.288.713T16 17q.425 0 .713-.288T17 16v-2q0-.425-.288-.712T16 13"></path></svg>
-					<span class="text-base">{ viewsCount }</span>
-				</div>
-				<div class="flex items-center space-x-4">
-					<!-- Bookmark button -->
-					<svg class="block w-6 h-6 text-neutral-dark hover:text-primary transition-colors duration-75" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21V5q0-.825.588-1.412T7 3h10q.825 0 1.413.588T19 5v16l-7-3zm2-3.05l5-2.15l5 2.15V5H7zM7 5h10z"></path></svg>
-					<!-- Share button -->
-					<svg class="block w-6 h-6 text-neutral-dark hover:text-primary transition-colors duration-75" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M6 23q-.825 0-1.412-.587T4 21V10q0-.825.588-1.412T6 8h3v2H6v11h12V10h-3V8h3q.825 0 1.413.588T20 10v11q0 .825-.587 1.413T18 23zm5-7V4.825l-1.6 1.6L8 5l4-4l4 4l-1.4 1.425l-1.6-1.6V16z"></path></svg>
-				</div>
-			</div>
-		</div>
-	</div>
+	</a>
 }
