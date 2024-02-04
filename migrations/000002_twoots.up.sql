@@ -3,5 +3,7 @@ CREATE TABLE twoots (
     contents text NOT NULL,
     created_at datetime NOT NULL,
     user_ID INTEGER NOT NULL,
-    FOREIGN KEY (user_ID) REFERENCES users(ID)
+    twoot_ID INTEGER,
+    FOREIGN KEY (user_ID) REFERENCES users(ID),
+    FOREIGN KEY (twoot_ID) REFERENCES twoots(ID)
 );
