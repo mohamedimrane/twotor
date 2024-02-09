@@ -5,6 +5,7 @@ import (
 	"github.com/mohamedimrane/twotor/model"
 	"github.com/mohamedimrane/twotor/data"
 	"github.com/mohamedimrane/twotor/views/partial"
+	"fmt"
 )
 
 templ Twoot(user model.User, twoot data.GetTwootByIdRow) {
@@ -64,6 +65,10 @@ templ Twoot(user model.User, twoot data.GetTwootByIdRow) {
 		</div>
 		@partial.TwootForm(&twoot.Twoot.ID)
 		<!-- Comments -->
-		<div class="w-full"></div>
+		<div
+			class="w-full flex flex-col"
+			hx-get={ fmt.Sprintf("/api/list-twoots/%d", twoot.Twoot.ID) }
+			hx-trigger="load, click delay:500ms from:#twoot-button, every 30s"
+		></div>
 	}
 }

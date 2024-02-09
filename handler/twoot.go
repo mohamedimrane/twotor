@@ -2,6 +2,7 @@ package handler
 
 import (
 	"database/sql"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/mohamedimrane/twotor/data"
@@ -60,7 +61,25 @@ func (hw *HandlerWrapper) CreateTwoot(c *fiber.Ctx) error {
 }
 
 func (hw *HandlerWrapper) ListTwoots(c *fiber.Ctx) error {
-	twoots, err := hw.queries.ListTwoots(c.Context())
+	var parentTwootId sql.NullInt64
+
+	ptistr := c.Params("twoot_id")
+	if ptistr != "" {
+		ptiint, err := strconv.Atoi(ptistr)
+		if err != nil {
+			return err
+			// return c.Status(fiber.StatusBadRequest).Send([]byte("no no no"))
+		}
+
+		parentTwootId = sql.NullInt64{
+			Int64: int64(ptiint),
+			Valid: true,
+		}
+	} else {
+		parentTwootId = sql.NullInt64{Valid: false}
+	}
+
+	twoots, err := hw.queries.ListTwoots(c.Context(), parentTwootId)
 	if err != nil {
 		return err
 	}

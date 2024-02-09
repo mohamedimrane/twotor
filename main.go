@@ -47,8 +47,8 @@ func main() {
 	// User routes
 	app.Get("/home", mw.Authenticated, hw.Home)
 	app.Get("/twoot/:id", mw.Authenticated, hw.Twoot)
-	app.Post("api/create-twoot", mw.Authenticated, hw.CreateTwoot)
-	app.Get("api/list-twoots", mw.Authenticated, hw.ListTwoots)
+	app.Post("/api/create-twoot", mw.Authenticated, hw.CreateTwoot)
+	app.Get("/api/list-twoots/:twoot_id?", mw.Authenticated, hw.ListTwoots)
 
 	app.Get("/hello", handler.Hello)
 	app.Get("/list", handler.List)

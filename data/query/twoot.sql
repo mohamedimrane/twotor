@@ -20,5 +20,5 @@ WHERE user_ID = ?;
 -- name: ListTwoots :many
 SELECT sqlc.embed(twoots), sqlc.embed(users) FROM twoots
 INNER JOIN users ON twoots.user_ID = users.ID
-WHERE twoots.twoot_ID IS NULL;
+WHERE twoots.twoot_ID IS ?;
 
