@@ -7,4 +7,5 @@ type Twoot struct {
 	Contents  string `form:"contents" validate:"required,min=1,max=1000"`
 	CreatedAt time.Time
 	UserId    uint
+	TwootId   uint `form:"parent_twoot_id"`
 }

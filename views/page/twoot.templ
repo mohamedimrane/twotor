@@ -4,10 +4,12 @@ import (
 	"github.com/mohamedimrane/twotor/views/layouts"
 	"github.com/mohamedimrane/twotor/model"
 	"github.com/mohamedimrane/twotor/data"
+	"github.com/mohamedimrane/twotor/views/partial"
 )
 
 templ Twoot(user model.User, twoot data.GetTwootByIdRow) {
 	@layouts.Layout("Twoot") {
+		<!-- Twoot -->
 		<div class="w-full px-4 py-4 space-y-4 border-b-2 border-b-neutral-xlight flex flex-col">
 			<!-- User information -->
 			<div class="flex space-x-2">
@@ -60,5 +62,8 @@ templ Twoot(user model.User, twoot data.GetTwootByIdRow) {
 				</div>
 			</div>
 		</div>
+		@partial.TwootForm(&twoot.Twoot.ID)
+		<!-- Comments -->
+		<div class="w-full"></div>
 	}
 }
